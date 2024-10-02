@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "2b56a123-f401-4f61-8f86-ec02ca0df368",
+		"name": "Custom Redis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Set Key",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key\": \"key2\",\n    \"value\": \"value2\",\n    \"ttl\": \"10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/custom_redis",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"custom_redis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Key",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/custom_redis/key1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"custom_redis",
+						"key1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
