@@ -8,4 +8,5 @@ import (
 func SetupRedisRoutes(router fiber.Router) {
 	router.Get("/:key", Controllers.GetController)
 	router.Post("/", Controllers.SetController)
+	router.Delete("/:key", Controllers.DeleteController)
 }

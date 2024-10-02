@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"key\": \"key2\",\n    \"value\": \"value2\",\n    \"ttl\": \"10\"\n}",
+					"raw": "{\n    \"key\": \"key2\",\n    \"value\": \"value2\",\n    \"ttl\": \"20\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -46,6 +46,25 @@
 						"api",
 						"custom_redis",
 						"key1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Key",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/custom_redis/key3",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"custom_redis",
+						"key3"
 					]
 				}
 			},
