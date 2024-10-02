@@ -29,6 +29,7 @@ func Init() {
 	}
 	Rds = &Redis{make(map[string]RedisValue), sync.RWMutex{}, file}
 	Rds.Restore()
+	go Rds.BackgroundCleanupService()
 }
 
 func (r *Redis) Set(key, value string, ttl time.Duration, log bool) error {
@@ -111,9 +112,8 @@ func (r *Redis) Log(operation, key, value string, ttl time.Duration) error {
 
 func (r *Redis) Restore() error {
 	scanner := bufio.NewScanner(r.logfile)
-	// Read each line from the file
+	fmt.Println("RESTORE LOG")
 	for scanner.Scan() {
-		fmt.Println("RESTORE LOG")
 		var entry LogEntry
 		line := scanner.Text()
 
@@ -146,4 +146,20 @@ func (r *Redis) Restore() error {
 		return errors.New(fmt.Sprintf("Error reading redis log file for restore: %s", err))
 	}
 	return nil
+}
+
+func (r *Redis) BackgroundCleanupService() {
+	for {
+		for key := range r.data {
+			if time.Now().After(r.data[key].ttl) {
+				fmt.Printf("Deleting key : %s\n", key)
+				err := r.Delete(key, true)
+				if err != nil {
+					fmt.Println("redis delete error:", err)
+				}
+			}
+		}
+
+		time.Sleep(5 * time.Second)
+	}
 }
